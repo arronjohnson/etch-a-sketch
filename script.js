@@ -63,6 +63,11 @@ function redrawGrid() {
   drawGrid();
 }
 
+/* BUTTONS */
+const resetButton = document.querySelector(".reset");
+
+resetButton.onclick = () => redrawGrid();
+
 /* SLIDER */
 const sizeValue = document.getElementById("sizeValue");
 const sizeSlider = document.getElementById("sizeSlider");
