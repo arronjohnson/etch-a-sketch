@@ -28,7 +28,7 @@ drawGrid();
 
 let mouseDown = false;
 container.onpointerdown = () => (mouseDown = true);
-container.onpointerup = () => (mouseDown = false);
+window.onpointerup = () => (mouseDown = false);
 window.ondragstart = () => false;
 window.ondrop = () => false;
 
