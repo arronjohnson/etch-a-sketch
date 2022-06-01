@@ -19,6 +19,8 @@ function drawGrid() {
       cell.classList.add("cell");
       cell.addEventListener("mousedown", (e) => colorCell(e));
       cell.addEventListener("mouseenter", (e) => colorCell(e));
+      cell.addEventListener("pointerdown", (e) => handlePointerDown(e));
+      cell.addEventListener("pointerenter", (e) => colorCell(e));
       row.append(cell);
     }
     container.append(row);
@@ -28,19 +30,14 @@ drawGrid();
 
 let mouseDown = false;
 container.onmousedown = () => (mouseDown = true);
+container.onpointerdown = () => (mouseDown = true);
 container.onmouseup = () => (mouseDown = false);
+container.onpointerup = () => (mouseDown = false);
 window.ondragstart = () => false;
 window.ondrop = () => false;
 
-function randomRGBValue() {
-  return Math.floor(Math.random() * 255);
-}
-
-function randomColor() {
-  const randR = randomRGBValue();
-  const randG = randomRGBValue();
-  const randB = randomRGBValue();
-  return `rgb(${randR}, ${randG}, ${randB})`;
+function handlePointerDown(e) {
+  e.target.releasePointerCapture(e.pointerId);
 }
 
 function colorCell(e) {
@@ -57,6 +54,17 @@ function colorCell(e) {
   if (currentFade) {
     applyFade(cell);
   }
+}
+
+function randomRGBValue() {
+  return Math.floor(Math.random() * 255);
+}
+
+function randomColor() {
+  const randR = randomRGBValue();
+  const randG = randomRGBValue();
+  const randB = randomRGBValue();
+  return `rgb(${randR}, ${randG}, ${randB})`;
 }
 
 function applyColor(cell) {
