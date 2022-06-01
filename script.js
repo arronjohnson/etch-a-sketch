@@ -39,14 +39,7 @@ function colorCell(e) {
   }
 
   const cell = e.target;
-  if (
-    currentMode === "erase" ||
-    !currentFade ||
-    !cell.hasAttribute("style") ||
-    cell.classList.contains("recolor")
-  ) {
-    applyColor(cell);
-  }
+  applyColor(cell);
   if (currentFade) {
     applyFade(cell);
   }
@@ -71,27 +64,18 @@ function applyColor(cell) {
     newColor = randomColor();
   }
   cell.style.backgroundColor = newColor;
-  cell.classList.remove("recolor");
 }
 
 function applyFade(cell) {
-  const rgbValues = cell.style.backgroundColor.match(/[\d.]+/g);
-  if (rgbValues.length === 3) {
-    rgbValues.push(0.1);
-  } else {
-    const alpha = parseFloat(rgbValues[3]);
-    rgbValues[3] = Math.min(0.99, alpha + 0.1);
+  const opacity = cell.style.opacity;
+  if (currentMode === "erase") {
+    cell.style.opacity = null;
+  } else if (opacity == 0) {
+    cell.style.opacity = 0.1;
+  } else if (opacity < 1) {
+    const newOpacity = Math.min(1, parseFloat(opacity) + 0.1);
+    cell.style.opacity = newOpacity;
   }
-  cell.style.backgroundColor = `rgba(${rgbValues.join(", ")})`;
-}
-
-function toggleRecolor() {
-  const cells = document.querySelectorAll(".cell");
-  cells.forEach((cell) => {
-    if (cell.hasAttribute("style")) {
-      cell.classList.add("recolor");
-    }
-  });
 }
 
 function clearGrid() {
@@ -117,9 +101,6 @@ function changeMode(e) {
 
   modeButtons.forEach((button) => button.classList.remove("toggled"));
   e.target.classList.add("toggled");
-  if (currentMode !== "erase") {
-    toggleRecolor();
-  }
 }
 
 function toggleFade(e) {
