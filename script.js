@@ -38,8 +38,6 @@ function colorCell(e) {
     e.target.releasePointerCapture(e.pointerId);
   }
 
-  console.log("coloring");
-
   const cell = e.target;
   applyColor(cell);
   applyFade(cell);
