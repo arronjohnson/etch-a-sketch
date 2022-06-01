@@ -14,8 +14,10 @@
   </header>
   <main>
     <section class="controls">
-      <p>16x16</p>
-      <input type="range" id="size" name="size" min="1" max="100" value="16">
+      <p>Dimensions</p>
+      <p id="sizeValue">50 x 50</p>
+      <input id="sizeSlider" class="slider" type="range" min="5" max="100"
+        step="5" value="50">
     </section>
     <section class="grid"></section>
     <section class="spacer"></section>
