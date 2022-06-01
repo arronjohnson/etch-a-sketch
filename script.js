@@ -38,11 +38,11 @@ function colorCell(e) {
     e.target.releasePointerCapture(e.pointerId);
   }
 
+  console.log("coloring");
+
   const cell = e.target;
   applyColor(cell);
-  if (currentFade) {
-    applyFade(cell);
-  }
+  applyFade(cell);
 }
 
 function randomRGBValue() {
@@ -70,6 +70,8 @@ function applyFade(cell) {
   const opacity = cell.style.opacity;
   if (currentMode === "erase") {
     cell.style.opacity = null;
+  } else if (!currentFade && opacity < 1) {
+    cell.style.opacity = 1;
   } else if (opacity == 0) {
     cell.style.opacity = 0.1;
   } else if (opacity < 1) {
