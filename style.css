@@ -37,6 +37,7 @@ button {
   background-color: rgb(240, 240, 240);
   border: 1px solid black;
   border-radius: 6px;
+  font-family: inherit;
   font-size: inherit;
   padding: 10px 20px;
 }
@@ -45,9 +46,15 @@ button:hover {
   background-color: rgb(220, 220, 220);
 }
 
+button.chosen,
 button.toggled {
-  background-color: rgb(70, 70, 70);
+  background-color: #3882f6;
   color: white;
+  font-weight: bold;
+}
+
+button.toggled {
+  background-color: #28a745;
 }
 
 main {
@@ -78,6 +85,18 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.tooltip {
+  background-color: rgb(240, 240, 240);
+  border: 1px solid black;
+  box-shadow: #0000001a 0 0 10px 2px;
+  color: black;
+  font-weight: normal;
+  padding: 10px 20px;
+  position: absolute;
+  visibility: hidden;
+  z-index: 100;
 }
 
 .resize {
@@ -123,7 +142,7 @@ footer {
   flex-direction: column;
   height: 600px;
   margin: 32px;
-  touch-action: none;
+  touch-action: pinch-zoom;
   width: 600px;
 }
 
@@ -142,6 +161,12 @@ footer {
 
 .row:not(:last-child) .cell {
   border-bottom: 1px solid #0000001a;
+}
+
+@media (hover: hover) {
+  .tooltip-parent:hover .tooltip {
+    visibility: visible;
+  }
 }
 
 @media (max-width: 700px) {

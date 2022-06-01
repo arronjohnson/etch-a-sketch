@@ -99,13 +99,25 @@ resetButton.onclick = () => redrawGrid();
 function changeMode(e) {
   currentMode = e.target.name;
 
-  modeButtons.forEach((button) => button.classList.remove("toggled"));
-  e.target.classList.add("toggled");
+  modeButtons.forEach((button) => button.classList.remove("chosen"));
+  e.target.classList.add("chosen");
 }
 
 function toggleFade(e) {
   e.target.classList.toggle("toggled");
   currentFade = !currentFade;
+}
+
+/* TOOLTIPS */
+const controls = document.querySelector(".controls");
+
+controls.onmousemove = (e) => moveTooltip(e);
+
+function moveTooltip(e) {
+  const tooltip = document.querySelector(".tooltip-parent:hover .tooltip");
+  if (tooltip === null) return;
+  tooltip.style.left = `${e.clientX + 10}px`;
+  tooltip.style.top = `${e.clientY - 50}px`;
 }
 
 /* SLIDER */
