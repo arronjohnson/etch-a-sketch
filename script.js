@@ -33,11 +33,9 @@ window.ondragstart = () => false;
 window.ondrop = () => false;
 
 function colorCell(e) {
-  if (e.type === "pointerenter") {
+  if (!mouseDown && e.type === "pointerenter") return;
+  if (e.type === "pointerdown") {
     e.target.releasePointerCapture(e.pointerId);
-    if (!mouseDown) {
-      return;
-    }
   }
 
   const cell = e.target;
