@@ -1,7 +1,7 @@
 const DEFAULT_MODE = "black";
 const DEFAULT_SIZE = 50;
 
-let currentMode = "rainbow";
+let currentMode = DEFAULT_MODE;
 let currentSize = DEFAULT_SIZE;
 
 /* GRID */
@@ -46,7 +46,7 @@ function colorCell(e) {
   // e.target.classList.add("active");
 
   switch (currentMode) {
-    case "rainbow":
+    case "random":
       e.target.style.backgroundColor = randomColor();
       break;
     default:
@@ -64,9 +64,18 @@ function redrawGrid() {
 }
 
 /* BUTTONS */
+const modeButtons = document.querySelectorAll(".mode");
 const resetButton = document.querySelector(".reset");
 
+modeButtons.forEach((button) => (button.onclick = (e) => changeMode(e)));
 resetButton.onclick = () => redrawGrid();
+
+function changeMode(e) {
+  currentMode = e.target.name;
+
+  modeButtons.forEach((button) => button.classList.remove("toggled"));
+  e.target.classList.add("toggled");
+}
 
 /* SLIDER */
 const sizeValue = document.getElementById("sizeValue");

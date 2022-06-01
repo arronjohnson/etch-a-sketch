@@ -26,8 +26,20 @@ a {
 }
 
 button {
+  background-color: rgb(240, 240, 240);
+  border: 1px solid black;
+  border-radius: 6px;
   font-size: 18px;
   padding: 10px 20px;
+}
+
+button:hover {
+  background-color: rgb(220, 220, 220);
+}
+
+button.toggled {
+  background-color: rgb(70, 70, 70);
+  color: white;
 }
 
 main {
