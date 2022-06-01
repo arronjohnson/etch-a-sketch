@@ -1,6 +1,8 @@
+const DEFAULT_FADE = false;
 const DEFAULT_MODE = "black";
 const DEFAULT_SIZE = 15;
 
+let currentFade = DEFAULT_FADE;
 let currentMode = DEFAULT_MODE;
 let currentSize = DEFAULT_SIZE;
 
@@ -38,22 +40,54 @@ function randomColor() {
   const randR = randomRGBValue();
   const randG = randomRGBValue();
   const randB = randomRGBValue();
-  return `rgba(${randR}, ${randG}, ${randB}, 1)`;
+  return `rgb(${randR}, ${randG}, ${randB})`;
 }
 
 function colorCell(e) {
   if (!mouseDown && e.type === "mouseenter") return;
 
-  switch (currentMode) {
-    case "erase":
-      e.target.removeAttribute("style");
-      break;
-    case "random":
-      e.target.style.backgroundColor = randomColor();
-      break;
-    default:
-      e.target.style.backgroundColor = "black";
+  const cell = e.target;
+  if (
+    !currentFade ||
+    !cell.hasAttribute("style") ||
+    cell.classList.contains("recolor")
+  ) {
+    applyColor(cell);
   }
+  if (currentFade) {
+    applyFade(cell);
+  }
+}
+
+function applyColor(cell) {
+  let newColor = "rgb(0, 0, 0)";
+  if (currentMode === "erase") {
+    newColor === "rgb(255, 255, 255)";
+  } else if (currentMode === "random") {
+    newColor = randomColor();
+  }
+  cell.style.backgroundColor = newColor;
+  cell.classList.remove("recolor");
+}
+
+function applyFade(cell) {
+  const rgbValues = cell.style.backgroundColor.match(/[\d.]+/g);
+  if (rgbValues.length === 3) {
+    rgbValues.push(0.1);
+  } else {
+    const alpha = parseFloat(rgbValues[3]);
+    rgbValues[3] = Math.min(0.99, alpha + 0.1);
+  }
+  cell.style.backgroundColor = `rgba(${rgbValues.join(", ")})`;
+}
+
+function toggleRecolor() {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((cell) => {
+    if (cell.hasAttribute("style")) {
+      cell.classList.add("recolor");
+    }
+  });
 }
 
 function clearGrid() {
@@ -67,9 +101,11 @@ function redrawGrid() {
 
 /* BUTTONS */
 const modeButtons = document.querySelectorAll(".mode");
+const fadeButton = document.querySelector(".fade");
 const resetButton = document.querySelector(".reset");
 
 modeButtons.forEach((button) => (button.onclick = (e) => changeMode(e)));
+fadeButton.onclick = (e) => toggleFade(e);
 resetButton.onclick = () => redrawGrid();
 
 function changeMode(e) {
@@ -77,6 +113,14 @@ function changeMode(e) {
 
   modeButtons.forEach((button) => button.classList.remove("toggled"));
   e.target.classList.add("toggled");
+  if (currentMode !== "erase") {
+    toggleRecolor();
+  }
+}
+
+function toggleFade(e) {
+  e.target.classList.toggle("toggled");
+  currentFade = !currentFade;
 }
 
 /* SLIDER */
