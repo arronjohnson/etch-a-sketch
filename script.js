@@ -1,5 +1,7 @@
+const DEFAULT_MODE = "black";
 const DEFAULT_SIZE = 50;
 
+let currentMode = "rainbow";
 let currentSize = DEFAULT_SIZE;
 
 /* GRID */
@@ -28,10 +30,28 @@ container.onmouseup = () => (mouseDown = false);
 window.ondragstart = () => false;
 window.ondrop = () => false;
 
+function randomRGBValue() {
+  return Math.floor(Math.random() * 255);
+}
+
+function randomColor() {
+  const randR = randomRGBValue();
+  const randG = randomRGBValue();
+  const randB = randomRGBValue();
+  return `rgba(${randR}, ${randG}, ${randB}, 1)`;
+}
+
 function colorCell(e) {
   if (!mouseDown && e.type === "mouseenter") return;
   // e.target.classList.add("active");
-  e.target.style.backgroundColor = "black";
+
+  switch (currentMode) {
+    case "rainbow":
+      e.target.style.backgroundColor = randomColor();
+      break;
+    default:
+      e.target.style.backgroundColor = "black";
+  }
 }
 
 function clearGrid() {
