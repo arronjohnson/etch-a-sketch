@@ -113,6 +113,7 @@ footer {
   flex-direction: column;
   height: 600px;
   margin: 32px;
+  touch-action: none;
   width: 600px;
 }
 
@@ -133,8 +134,49 @@ footer {
   border-bottom: 1px solid #0000001a;
 }
 
-.active {
-  /* background-color: black; */
-  /* border-left: 1px solid transparent !important; */
-  /* border-bottom: 1px solid transparent !important; */
+@media (max-width: 400px) {
+  body {
+    height: auto;
+  }
+
+  header {
+    margin: 32px 0 16px 0;
+    order: -2;
+  }
+
+  main {
+    flex-direction: column-reverse;
+    margin-bottom: 32px;
+  }
+
+  footer {
+    order: -1;
+    width: 70%;
+  }
+
+  .grid {
+    height: 300px;
+    width: 300px;
+  }
+}
+
+@media (max-width: 1000px) {
+  body {
+    height: auto;
+  }
+
+  header {
+    margin: 32px 0 16px 0;
+    order: -2;
+  }
+
+  main {
+    flex-direction: column-reverse;
+    margin-bottom: 32px;
+  }
+
+  footer {
+    order: -1;
+    width: 70%;
+  }
 }
