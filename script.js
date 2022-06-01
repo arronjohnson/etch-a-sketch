@@ -23,14 +23,15 @@ function drawGrid() {
 drawGrid();
 
 let mouseDown = false;
-window.onmousedown = () => (mouseDown = true);
-window.onmouseup = () => (mouseDown = false);
+container.onmousedown = () => (mouseDown = true);
+container.onmouseup = () => (mouseDown = false);
 window.ondragstart = () => false;
 window.ondrop = () => false;
 
 function colorCell(e) {
   if (!mouseDown && e.type === "mouseenter") return;
-  e.target.classList.add("active");
+  // e.target.classList.add("active");
+  e.target.style.backgroundColor = "black";
 }
 
 function clearGrid() {
