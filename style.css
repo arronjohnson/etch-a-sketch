@@ -60,6 +60,15 @@ footer {
   text-align: center;
 }
 
+.links {
+  align-items: center;
+  display: flex;
+  font-size: 3rem;
+  gap: 16px;
+  justify-content: center;
+  margin: 0 0 16px 4px;
+}
+
 .controls,
 .spacer {
   width: 150px;
