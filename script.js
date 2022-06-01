@@ -1,5 +1,5 @@
 const DEFAULT_MODE = "black";
-const DEFAULT_SIZE = 50;
+const DEFAULT_SIZE = 15;
 
 let currentMode = DEFAULT_MODE;
 let currentSize = DEFAULT_SIZE;
@@ -43,9 +43,11 @@ function randomColor() {
 
 function colorCell(e) {
   if (!mouseDown && e.type === "mouseenter") return;
-  // e.target.classList.add("active");
 
   switch (currentMode) {
+    case "erase":
+      e.target.removeAttribute("style");
+      break;
     case "random":
       e.target.style.backgroundColor = randomColor();
       break;
