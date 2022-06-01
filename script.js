@@ -37,6 +37,7 @@ window.ondragstart = () => false;
 window.ondrop = () => false;
 
 function handlePointerDown(e) {
+  console.log("pointer event");
   e.target.releasePointerCapture(e.pointerId);
 }
 
@@ -45,6 +46,7 @@ function colorCell(e) {
 
   const cell = e.target;
   if (
+    currentMode === "erase" ||
     !currentFade ||
     !cell.hasAttribute("style") ||
     cell.classList.contains("recolor")
@@ -70,7 +72,7 @@ function randomColor() {
 function applyColor(cell) {
   let newColor = "rgb(0, 0, 0)";
   if (currentMode === "erase") {
-    newColor === "rgb(255, 255, 255)";
+    newColor = "rgb(255, 255, 255)";
   } else if (currentMode === "random") {
     newColor = randomColor();
   }
