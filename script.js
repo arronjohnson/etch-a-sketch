@@ -17,9 +17,7 @@ function drawGrid() {
     for (let j = 0; j < currentSize; j++) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
-      cell.addEventListener("mousedown", (e) => colorCell(e));
-      cell.addEventListener("mouseenter", (e) => colorCell(e));
-      cell.addEventListener("pointerdown", (e) => handlePointerDown(e));
+      cell.addEventListener("pointerdown", (e) => colorCell(e));
       cell.addEventListener("pointerenter", (e) => colorCell(e));
       row.append(cell);
     }
@@ -29,20 +27,18 @@ function drawGrid() {
 drawGrid();
 
 let mouseDown = false;
-container.onmousedown = () => (mouseDown = true);
 container.onpointerdown = () => (mouseDown = true);
-container.onmouseup = () => (mouseDown = false);
 container.onpointerup = () => (mouseDown = false);
 window.ondragstart = () => false;
 window.ondrop = () => false;
 
-function handlePointerDown(e) {
-  console.log("pointer event");
-  e.target.releasePointerCapture(e.pointerId);
-}
-
 function colorCell(e) {
-  if (!mouseDown && e.type === "mouseenter") return;
+  if (e.type === "pointerenter") {
+    e.target.releasePointerCapture(e.pointerId);
+    if (!mouseDown) {
+      return;
+    }
+  }
 
   const cell = e.target;
   if (

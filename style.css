@@ -87,6 +87,7 @@ footer {
   -webkit-transition: 0.2s;
   background-color: white;
   border: 1px solid black;
+  border-radius: 0px;
   height: 15px;
   transition: opacity 0.2s;
 }
